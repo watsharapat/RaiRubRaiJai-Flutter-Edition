@@ -18,8 +18,9 @@ class TodayDataList extends StatefulWidget {
 class _TodayDataListState extends State<TodayDataList> {
   int maxSize = 30;
 
-  Widget rowDate(BuildContext context, Date date, bool isFirst) {
-    String todayStr = " ${getMonthName(date.month)} ${date.year}";
+  Widget rowDate(BuildContext context, Date date, bool isToday, bool isFirst) {
+    String todayStr =
+        " ${getMonthName(date.month)} ${date.year}${isToday ? " (Today)" : ""}";
     return Padding(
       padding: EdgeInsets.only(top: isFirst ? 0 : 30),
       child: Row(
@@ -45,6 +46,55 @@ class _TodayDataListState extends State<TodayDataList> {
     );
   }
 
+  Widget rowAccount(
+      BuildContext context, Account account, Date date, int index) {
+    return GestureDetector(
+      child: Card(
+        color: account.isPositive
+            ? Colors.greenAccent[100]
+            : Colors.redAccent[100],
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: AutoSizeText(
+              "${account.icon} ${account.title} : ${account.amount}",
+              style: const TextStyle(fontSize: 24.0),
+              maxLines: 1),
+        ),
+      ),
+      onTap: () {
+        //? show info via dialog
+
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor:
+                    account.isPositive ? Colors.green[50] : Colors.red[50],
+                title: Text("${account.amount}\$",
+                    style: TextStyle(fontSize: 24.0)),
+                content: Text(
+                    '${account.fullTitle}\n${(account.description == "") ? "\nNo description" : account.description}'),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(
+                          context,
+                          "/editData",
+                          arguments: EditPassArgu(date: date, index: index),
+                        );
+                      },
+                      child: Text("edit")),
+                  TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text("OK")),
+                ],
+              );
+            });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<User>(
@@ -57,66 +107,35 @@ class _TodayDataListState extends State<TodayDataList> {
         dates.sort((a, b) => b.compareTo(a));
 
         List<Widget> widgets = [];
+        var accountOnToday = value.accountsData.getAccountsOnDate(Date.today());
+        widgets.add(rowDate(context, Date.today(), true, true));
+        if (accountOnToday.isEmpty) {
+          widgets.add(const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Center(child: Text("No data :|\n"))));
+        } else {
+          for (int i = 0; i < accountOnToday.length; i++) {
+            var account = accountOnToday[i];
+            widgets.add(rowAccount(context, account, Date.today(), i));
+          }
+        }
+        widgets.add(Divider(
+          color: Theme.of(context).primaryColor,
+          thickness: 1,
+        ));
+
         bool isFirst = true;
         for (var date in dates) {
           var accountOnDate = value.accountsData.getAccountsOnDate(date);
           if (accountOnDate.isEmpty) {
             continue;
           }
-          widgets.add(rowDate(context, date, isFirst));
+          widgets.add(rowDate(context, date, false, isFirst));
           isFirst = false;
 
           for (int i = 0; i < accountOnDate.length; i++) {
             var account = accountOnDate[i];
-            widgets.add(
-              GestureDetector(
-                child: Card(
-                  color: account.isPositive
-                      ? Colors.greenAccent[100]
-                      : Colors.redAccent[100],
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: AutoSizeText(
-                        "${account.icon} ${account.title} : ${account.amount}",
-                        style: const TextStyle(fontSize: 24.0),
-                        maxLines: 1),
-                  ),
-                ),
-                onTap: () {
-                  //? show info via dialog
-
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          backgroundColor: account.isPositive
-                              ? Colors.green[50]
-                              : Colors.red[50],
-                          title: Text("${account.amount}\$",
-                              style: TextStyle(fontSize: 24.0)),
-                          content: Text(
-                              '${account.fullTitle}\n${(account.description == "") ? "\nNo description" : account.description}'),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pushNamed(
-                                    context,
-                                    "/editData",
-                                    arguments:
-                                        EditPassArgu(date: date, index: i),
-                                  );
-                                },
-                                child: Text("edit")),
-                            TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: Text("OK")),
-                          ],
-                        );
-                      });
-                },
-              ),
-            );
+            widgets.add(rowAccount(context, account, date, i));
           }
 
           if (widgets.length > maxSize) {

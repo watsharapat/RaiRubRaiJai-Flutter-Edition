@@ -55,7 +55,6 @@ class AccountsData {
       print(_accounts.isEmpty);
       onUpdateData();
     }
-    //TODO: Sync with the database
   }
 
   void addAccountAtDay(Date date, Account account) {

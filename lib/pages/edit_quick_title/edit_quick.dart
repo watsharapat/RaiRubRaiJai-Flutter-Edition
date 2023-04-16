@@ -29,7 +29,6 @@ class _QuickEditPageState extends State<QuickEditPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     User uData = Provider.of<User>(context, listen: false);

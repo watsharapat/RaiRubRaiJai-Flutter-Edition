@@ -53,8 +53,7 @@ class EditPage extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                         "${getMonthName(monthYearsWithDivider[index].month)} Δ$delta"),
-                    subtitle:
-                        Text("+${_ICmonth.income}\$  ${_ICmonth.income}\$"),
+                    subtitle: Text("+${_ICmonth.income}\$  ${_ICmonth.cost}\$"),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
                       Navigator.pushNamed(context, "/edit_month",
