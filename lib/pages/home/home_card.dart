@@ -13,15 +13,19 @@ class HomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isPortrait = MediaQuery.of(context).size.width < 600;
     return Consumer<User>(builder: (context, value, child) {
-      final int moneySummary =
+      final List<Account> todayData = value.accountsData.getAccountsToday();
+      int moneySummary =
           value.accountsData.getAccumulatedBeforeDay(Date.today());
-      final List<Account> allData = value.accountsData.getAllAccounts();
+
+      for (var e in todayData) {
+        moneySummary += e.isPositive ? 0 : e.amount;
+      }
+
       final int costMonth =
           value.accountsData.getIncomeAndCostAtMonth(Date.today()).cost;
 
       final int moneyofMonth = moneySummary - costMonth;
 
-      final List<Account> todayData = value.accountsData.getAccountsToday();
       String todayMoneyStr = "";
       if (todayData.isEmpty) {
         todayMoneyStr = 'No data\n';
@@ -38,11 +42,6 @@ class HomeCard extends StatelessWidget {
       final int expectedCost =
           value.accountsData.getExpectedMoneyAtDay(Date.today());
       //todayMoneyStr += "Expected cost money: $expectedCost";
-
-      final IncomeAndCost monthlySummaryIC =
-          value.accountsData.getIncomeAndCostAtMonth(Date.today());
-      final String monthlySummaryStr =
-          "+${monthlySummaryIC.income}\$  ${monthlySummaryIC.cost}\$  Δ ${monthlySummaryIC.income + monthlySummaryIC.cost}\$";
 
       return Card(
         shape: RoundedRectangleBorder(

@@ -98,6 +98,19 @@ class AccountsData {
     return _accumulated[allDate[ans]]!;
   }
 
+  IncomeAndCost getICAtDay(Date date) {
+    int income = 0;
+    int cost = 0;
+    for (final account in getAccountsOnDate(date)) {
+      if (account.isPositive) {
+        income += account.amount;
+      } else {
+        cost += account.amount;
+      }
+    }
+    return IncomeAndCost(income, cost);
+  }
+
   int getAccumulatedBeforeDay(Date date) {
     var ic = getAccumulatedICBeforeDay(date);
     return ic.income + ic.cost;

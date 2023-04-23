@@ -18,9 +18,13 @@ class TodayDataList extends StatefulWidget {
 class _TodayDataListState extends State<TodayDataList> {
   int maxSize = 30;
 
-  Widget rowDate(BuildContext context, Date date, bool isToday, bool isFirst) {
+  Widget rowDate(BuildContext context, Date date, bool isToday, bool isFirst,
+      User userValue) {
+    final IncomeAndCost icAtDate = userValue.accountsData.getICAtDay(date);
+    final int deltaMoney = icAtDate.income + icAtDate.cost;
+
     String todayStr =
-        " ${getMonthName(date.month)} ${date.year}${isToday ? " (Today)" : ""}";
+        " ${getMonthName(date.month)} ${date.year}${isToday ? " (Today)" : ""} [${deltaMoney}\$]";
     return Padding(
       padding: EdgeInsets.only(top: isFirst ? 0 : 30),
       child: Row(
@@ -108,7 +112,7 @@ class _TodayDataListState extends State<TodayDataList> {
 
         List<Widget> widgets = [];
         var accountOnToday = value.accountsData.getAccountsOnDate(Date.today());
-        widgets.add(rowDate(context, Date.today(), true, true));
+        widgets.add(rowDate(context, Date.today(), true, true, value));
         if (accountOnToday.isEmpty) {
           widgets.add(const Padding(
               padding: EdgeInsets.only(top: 10),
@@ -127,10 +131,10 @@ class _TodayDataListState extends State<TodayDataList> {
         bool isFirst = true;
         for (var date in dates) {
           var accountOnDate = value.accountsData.getAccountsOnDate(date);
-          if (accountOnDate.isEmpty) {
+          if (accountOnDate.isEmpty || date.compareTo(Date.today()) == 0) {
             continue;
           }
-          widgets.add(rowDate(context, date, false, isFirst));
+          widgets.add(rowDate(context, date, false, isFirst, value));
           isFirst = false;
 
           for (int i = 0; i < accountOnDate.length; i++) {

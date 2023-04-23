@@ -3,7 +3,7 @@ class Account {
   final String fullTitle;
   final String description;
 
-  bool get isPositive => amount > 0;
+  bool get isPositive => amount >= 0;
   String get icon => String.fromCharCode(fullTitle.runes.first);
   String get title => String.fromCharCodes(fullTitle.runes, 2);
 
