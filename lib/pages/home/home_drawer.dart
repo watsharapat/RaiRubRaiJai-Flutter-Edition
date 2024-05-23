@@ -35,43 +35,55 @@ class HomeDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
+          Container(
               color: Theme.of(context).primaryColor,
-            ),
-            child: Consumer<User>(
-              builder: (context, value, child) {
-                return Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: NetworkImage(value.user!.photoUrl!),
-                    ),
-                    Text(
-                      value.user!.email,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.account_balance_wallet, color: Colors.white),
-                        Text(
-                          value.accountName,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
+              height: 200,
+              child: Center(
+                  child: DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: Consumer<User>(
+                  builder: (context, value, child) {
+                    return Expanded(
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 36,
+                            backgroundImage:
+                                NetworkImage(value.user!.photoUrl!),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
-                );
-              },
-            ),
-          ),
+                          Flexible(
+                              child: Text(
+                            value.user!.email,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          )),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.account_balance_wallet,
+                                  color: Colors.white),
+                              Flexible(
+                                child: Text(
+                                  value.accountName,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ))),
           Expanded(flex: 5, child: ListView(children: listViewData)),
           ListTile(
             title: const Text('Quick income titles'),

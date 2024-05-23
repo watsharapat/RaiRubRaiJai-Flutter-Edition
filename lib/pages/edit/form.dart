@@ -260,7 +260,7 @@ class _AddEditPageState extends State<AddEditPage> {
                         }
                       });
                     },
-                    icon: Icon(Icons.arrow_drop_down_circle_outlined),
+                    icon: const Icon(Icons.arrow_drop_down_circle_outlined),
                   ),
                 ],
               ),

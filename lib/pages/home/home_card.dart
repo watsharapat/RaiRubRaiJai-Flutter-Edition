@@ -36,7 +36,7 @@ class HomeCard extends StatelessWidget {
           incomeToday += e.isPositive ? e.amount : 0;
           costToday += e.isPositive ? 0 : e.amount;
         }
-        todayMoneyStr = "+$incomeToday\$  $costToday\$";
+        todayMoneyStr = "+$incomeToday  $costToday";
       }
 
       final int expectedCost =
@@ -45,57 +45,54 @@ class HomeCard extends StatelessWidget {
 
       return Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(16.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Expanded(
-                flex: 1,
-                child: Row(
-                  children: [AutoSizeText(value.accountName)],
-                ),
-              ),
               Expanded(
                 flex: 8,
                 child: isPortrait
                     ? Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: AutoSizeText(
-                              "$moneySummary\$",
-                              style: TextStyle(fontSize: 72),
-                              maxLines: 1,
+                          Column(children: [
+                            const Text("Remaining"),
+                            Expanded(
+                              child: AutoSizeText(
+                                "$moneySummary\ ",
+                                style: const TextStyle(fontSize: 72),
+                                maxLines: 1,
+                              ),
                             ),
-                          ),
+                          ]),
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.only(left: 12),
+                              padding: const EdgeInsets.only(left: 12),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Today's data:"),
+                                  const Text("Today's summary"),
                                   Expanded(
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 8, right: 8),
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 8),
                                       child: AutoSizeText(
                                         todayMoneyStr,
-                                        style: TextStyle(fontSize: 48),
+                                        style: const TextStyle(fontSize: 48),
                                         maxLines: 1,
                                       ),
                                     ),
                                   ),
-                                  Text("Expected cost today:"),
+                                  const Text("Expected cost per day:"),
                                   Expanded(
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 8, right: 8),
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 8),
                                       child: AutoSizeText(
-                                        '$expectedCost\$',
-                                        style: TextStyle(fontSize: 48),
+                                        '$expectedCost',
+                                        style: const TextStyle(fontSize: 48),
                                         maxLines: 1,
                                       ),
                                     ),
@@ -111,8 +108,8 @@ class HomeCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: AutoSizeText(
-                              "$moneySummary\$",
-                              style: TextStyle(fontSize: 72),
+                              "$moneySummary",
+                              style: const TextStyle(fontSize: 72),
                               maxLines: 1,
                             ),
                           ),
@@ -120,12 +117,13 @@ class HomeCard extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Today's data:"),
+                                const Text("Today's data:"),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 8, right: 8),
+                                  padding:
+                                      const EdgeInsets.only(left: 8, right: 8),
                                   child: AutoSizeText(
                                     todayMoneyStr,
-                                    style: TextStyle(fontSize: 48),
+                                    style: const TextStyle(fontSize: 48),
                                     maxLines: 1,
                                   ),
                                 ),
@@ -136,12 +134,13 @@ class HomeCard extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Expected cost today:"),
+                                const Text("Expected cost today:"),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 8, right: 8),
+                                  padding:
+                                      const EdgeInsets.only(left: 8, right: 8),
                                   child: AutoSizeText(
-                                    '$expectedCost\$',
-                                    style: TextStyle(fontSize: 48),
+                                    '$expectedCost',
+                                    style: const TextStyle(fontSize: 48),
                                     maxLines: 1,
                                   ),
                                 ),
@@ -156,7 +155,7 @@ class HomeCard extends StatelessWidget {
                   child: Row(
                     children: [
                       AutoSizeText(
-                          "${-costMonth}/$moneyofMonth\$ remaining : ${moneyofMonth + costMonth}\$"),
+                          "${-costMonth}/$moneyofMonth remaining : ${moneyofMonth + costMonth}"),
                     ],
                   )),
               LinearProgressIndicator(

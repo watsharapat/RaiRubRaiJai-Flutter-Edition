@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1033492459545",
+    "project_id": "rairub-raijai",
+    "storage_bucket": "rairub-raijai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033492459545:android:ced2a6da05d77ac0ec7a88",
+        "android_client_info": {
+          "package_name": "com.example.rai_rub_rai_jai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033492459545-anbc377gorv9annmfmq3tjbg4nfqf4vb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rai_rub_rai_jai",
+            "certificate_hash": "fb907c26b9a7c5424ba80f32a3fc24c49c5d448e"
+          }
+        },
+        {
+          "client_id": "1033492459545-atmrskqn83ckr2lil1d48k7n65kqqqg3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-Oicne1ItpjM7IaXFLDAda56iWsBSWTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033492459545-atmrskqn83ckr2lil1d48k7n65kqqqg3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1033492459545-heoo1nc5r3d2ns9g2jam2rf26b4ol668.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.raiRubRaiJai"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

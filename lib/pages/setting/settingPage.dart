@@ -11,9 +11,7 @@ class SettingPage extends StatelessWidget {
       body: Center(
         child: Text('Setting\nApp Ver 0.0.4 :D'),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: BottomNavigation(focused: BottomPages.setting),
-      ),
+      bottomNavigationBar: BottomNavigation(focused: BottomPages.setting),
     );
   }
 }

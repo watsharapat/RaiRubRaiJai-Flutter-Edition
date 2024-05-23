@@ -65,9 +65,7 @@ class EditPage extends StatelessWidget {
             },
           ),
         ),
-        bottomNavigationBar: const BottomAppBar(
-          child: BottomNavigation(focused: BottomPages.edit),
-        ),
+        bottomNavigationBar: const BottomNavigation(focused: BottomPages.edit),
       );
     });
   }

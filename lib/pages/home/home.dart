@@ -26,11 +26,11 @@ class HomePage extends StatelessWidget {
 
     String todayStr = " ${getMonthName(today.month)} ${today.year}";
     return Scaffold(
-      drawer: HomeDrawer(),
+      drawer: const HomeDrawer(),
       appBar: AppBar(
         title: Consumer<User>(
           builder: (context, value, child) {
-            return Text('รายรับรายจ่าย : ${value.accountName}');
+            return Text('Account: ${value.accountName}');
           },
         ),
         actions: [
@@ -43,26 +43,24 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: const <Widget>[
+      body: const Column(
+        children: <Widget>[
           //? Info data
           Expanded(
-            flex: 3,
-            child: Padding(padding: EdgeInsets.all(10), child: HomeCard()),
+            flex: 1,
+            child: Padding(padding: EdgeInsets.all(8), child: HomeCard()),
           ),
           //Display Today Data
           Expanded(
-            flex: 5,
+            flex: 2,
             child: Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
+              padding: EdgeInsets.only(left: 8, right: 8),
               child: TodayDataList(),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: const BottomAppBar(
-        child: BottomNavigation(focused: BottomPages.home),
-      ),
+      bottomNavigationBar: const BottomNavigation(focused: BottomPages.home),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed('/addData', arguments: Date.today());

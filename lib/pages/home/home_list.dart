@@ -50,6 +50,7 @@ class _TodayDataListState extends State<TodayDataList> {
     );
   }
 
+//รายการรายจ่าย
   Widget rowAccount(
       BuildContext context, Account account, Date date, int index) {
     return GestureDetector(
@@ -67,7 +68,6 @@ class _TodayDataListState extends State<TodayDataList> {
       ),
       onTap: () {
         //? show info via dialog
-
         showDialog(
             context: context,
             builder: (context) {
@@ -115,7 +115,7 @@ class _TodayDataListState extends State<TodayDataList> {
         widgets.add(rowDate(context, Date.today(), true, true, value));
         if (accountOnToday.isEmpty) {
           widgets.add(const Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(top: 8),
               child: Center(child: Text("No data :|\n"))));
         } else {
           for (int i = 0; i < accountOnToday.length; i++) {
@@ -145,7 +145,7 @@ class _TodayDataListState extends State<TodayDataList> {
           if (widgets.length > maxSize) {
             widgets.add(
               Padding(
-                padding: EdgeInsets.all(30.0),
+                padding: EdgeInsets.all(24.0),
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () => setState(() {
